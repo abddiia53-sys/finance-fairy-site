@@ -1,14 +1,18 @@
 import { motion } from "framer-motion";
-import { Plus, FileText, Receipt, PiggyBank } from "lucide-react";
+import { Plus, FileText, Receipt, PiggyBank, Link2 } from "lucide-react";
 
-const actions = [
-  { label: "Ny utgift", icon: Receipt, color: "bg-destructive/10 text-destructive" },
-  { label: "Ny intäkt", icon: Plus, color: "bg-primary/10 text-primary" },
-  { label: "Skapa faktura", icon: FileText, color: "bg-warning/10 text-warning" },
-  { label: "Sparmål", icon: PiggyBank, color: "bg-accent text-accent-foreground" },
-];
+interface QuickActionsProps {
+  onConnectBank?: () => void;
+}
 
-const QuickActions = () => {
+const QuickActions = ({ onConnectBank }: QuickActionsProps) => {
+  const actions = [
+    { label: "Ny utgift", icon: Receipt, color: "bg-destructive/10 text-destructive", onClick: undefined },
+    { label: "Ny intäkt", icon: Plus, color: "bg-primary/10 text-primary", onClick: undefined },
+    { label: "Skanna bank", icon: Link2, color: "bg-accent text-accent-foreground", onClick: onConnectBank },
+    { label: "Skapa faktura", icon: FileText, color: "bg-warning/10 text-warning", onClick: undefined },
+  ];
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -21,6 +25,7 @@ const QuickActions = () => {
         {actions.map((action) => (
           <button
             key={action.label}
+            onClick={action.onClick}
             className="flex items-center gap-3 p-4 rounded-lg bg-secondary/50 hover:bg-secondary transition-colors text-left group"
           >
             <div className={`p-2 rounded-lg ${action.color}`}>
