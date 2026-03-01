@@ -7,7 +7,7 @@ import OverviewChart from "@/components/OverviewChart";
 import TransactionList from "@/components/TransactionList";
 import QuickActions from "@/components/QuickActions";
 import BankConnectModal from "@/components/BankConnectModal";
-import { Toaster } from "@/components/ui/sonner";
+import AddTransactionModal from "@/components/AddTransactionModal";
 import { toast } from "sonner";
 
 const businessStats = [
@@ -27,12 +27,30 @@ const personalStats = [
 const Index = () => {
   const [mode, setMode] = useState<"personal" | "business">("business");
   const [bankModalOpen, setBankModalOpen] = useState(false);
+  const [txModalOpen, setTxModalOpen] = useState(false);
+  const [txModalType, setTxModalType] = useState<"income" | "expense">("expense");
   const stats = mode === "business" ? businessStats : personalStats;
 
   const handleBankConnected = (bankName: string) => {
     toast.success(`${bankName} kopplad!`, {
       description: "47 transaktioner har importerats till din översikt.",
     });
+  };
+
+  const handleAddTransaction = (tx: { description: string; amount: number; category: string; type: "income" | "expense" }) => {
+    toast.success(`${tx.type === "income" ? "Intäkt" : "Utgift"} tillagd`, {
+      description: `${tx.description} – ${tx.amount.toLocaleString("sv-SE")} kr`,
+    });
+  };
+
+  const openExpenseModal = () => {
+    setTxModalType("expense");
+    setTxModalOpen(true);
+  };
+
+  const openIncomeModal = () => {
+    setTxModalType("income");
+    setTxModalOpen(true);
   };
 
   return (
@@ -74,7 +92,11 @@ const Index = () => {
               <div className="lg:col-span-2">
                 <OverviewChart />
               </div>
-              <QuickActions onConnectBank={() => setBankModalOpen(true)} />
+              <QuickActions
+                onConnectBank={() => setBankModalOpen(true)}
+                onAddExpense={openExpenseModal}
+                onAddIncome={openIncomeModal}
+              />
             </div>
 
             <TransactionList />
@@ -86,6 +108,13 @@ const Index = () => {
         open={bankModalOpen}
         onClose={() => setBankModalOpen(false)}
         onConnected={handleBankConnected}
+      />
+
+      <AddTransactionModal
+        open={txModalOpen}
+        onClose={() => setTxModalOpen(false)}
+        onAdd={handleAddTransaction}
+        initialType={txModalType}
       />
     </div>
   );
