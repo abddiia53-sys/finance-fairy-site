@@ -1,14 +1,16 @@
 import { motion } from "framer-motion";
-import { Plus, FileText, Receipt, PiggyBank, Link2 } from "lucide-react";
+import { Plus, FileText, Receipt, Link2 } from "lucide-react";
 
 interface QuickActionsProps {
   onConnectBank?: () => void;
+  onAddExpense?: () => void;
+  onAddIncome?: () => void;
 }
 
-const QuickActions = ({ onConnectBank }: QuickActionsProps) => {
+const QuickActions = ({ onConnectBank, onAddExpense, onAddIncome }: QuickActionsProps) => {
   const actions = [
-    { label: "Ny utgift", icon: Receipt, color: "bg-destructive/10 text-destructive", onClick: undefined },
-    { label: "Ny intäkt", icon: Plus, color: "bg-primary/10 text-primary", onClick: undefined },
+    { label: "Ny utgift", icon: Receipt, color: "bg-destructive/10 text-destructive", onClick: onAddExpense },
+    { label: "Ny intäkt", icon: Plus, color: "bg-primary/10 text-primary", onClick: onAddIncome },
     { label: "Skanna bank", icon: Link2, color: "bg-accent text-accent-foreground", onClick: onConnectBank },
     { label: "Skapa faktura", icon: FileText, color: "bg-warning/10 text-warning", onClick: undefined },
   ];
