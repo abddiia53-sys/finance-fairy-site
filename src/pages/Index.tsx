@@ -6,6 +6,9 @@ import StatCard from "@/components/StatCard";
 import OverviewChart from "@/components/OverviewChart";
 import TransactionList from "@/components/TransactionList";
 import QuickActions from "@/components/QuickActions";
+import BankConnectModal from "@/components/BankConnectModal";
+import { Toaster } from "@/components/ui/sonner";
+import { toast } from "sonner";
 
 const businessStats = [
   { title: "Total intäkt", value: "476 500 kr", change: "+12.5% mot förra månaden", changeType: "positive" as const, icon: TrendingUp },
@@ -23,7 +26,14 @@ const personalStats = [
 
 const Index = () => {
   const [mode, setMode] = useState<"personal" | "business">("business");
+  const [bankModalOpen, setBankModalOpen] = useState(false);
   const stats = mode === "business" ? businessStats : personalStats;
+
+  const handleBankConnected = (bankName: string) => {
+    toast.success(`${bankName} kopplad!`, {
+      description: "47 transaktioner har importerats till din översikt.",
+    });
+  };
 
   return (
     <div className="min-h-screen bg-background">
@@ -40,8 +50,8 @@ const Index = () => {
             {mode === "business" ? "Företagsöversikt" : "Privatöversikt"}
           </h2>
           <p className="text-muted-foreground mt-1">
-            {mode === "business" 
-              ? "Håll koll på ditt företags ekonomi" 
+            {mode === "business"
+              ? "Håll koll på ditt företags ekonomi"
               : "Din personliga ekonomiska överblick"}
           </p>
         </motion.div>
@@ -54,26 +64,29 @@ const Index = () => {
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.3 }}
           >
-            {/* Stat Cards */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
               {stats.map((stat, i) => (
                 <StatCard key={stat.title} {...stat} delay={i * 0.1} />
               ))}
             </div>
 
-            {/* Chart + Actions */}
             <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
               <div className="lg:col-span-2">
                 <OverviewChart />
               </div>
-              <QuickActions />
+              <QuickActions onConnectBank={() => setBankModalOpen(true)} />
             </div>
 
-            {/* Transactions */}
             <TransactionList />
           </motion.div>
         </AnimatePresence>
       </main>
+
+      <BankConnectModal
+        open={bankModalOpen}
+        onClose={() => setBankModalOpen(false)}
+        onConnected={handleBankConnected}
+      />
     </div>
   );
 };
