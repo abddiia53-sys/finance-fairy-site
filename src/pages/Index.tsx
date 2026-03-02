@@ -8,6 +8,7 @@ import TransactionList from "@/components/TransactionList";
 import QuickActions from "@/components/QuickActions";
 import BankConnectModal from "@/components/BankConnectModal";
 import AddTransactionModal from "@/components/AddTransactionModal";
+import FinancialInsights from "@/components/FinancialInsights";
 import { toast } from "sonner";
 
 export interface Transaction {
@@ -133,7 +134,11 @@ const Index = () => {
               <QuickActions onConnectBank={() => setBankModalOpen(true)} onAddExpense={openExpenseModal} onAddIncome={openIncomeModal} />
             </div>
 
-            <TransactionList transactions={sortedTransactions} />
+            <FinancialInsights transactions={transactions} mode={mode} />
+
+            <div className="mt-8">
+              <TransactionList transactions={sortedTransactions} />
+            </div>
           </motion.div>
         </AnimatePresence>
       </main>
