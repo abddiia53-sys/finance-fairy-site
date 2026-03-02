@@ -134,7 +134,11 @@ const Index = () => {
               <QuickActions onConnectBank={() => setBankModalOpen(true)} onAddExpense={openExpenseModal} onAddIncome={openIncomeModal} />
             </div>
 
-            <TransactionList transactions={sortedTransactions} />
+            <FinancialInsights transactions={transactions} mode={mode} />
+
+            <div className="mt-8">
+              <TransactionList transactions={sortedTransactions} />
+            </div>
           </motion.div>
         </AnimatePresence>
       </main>
