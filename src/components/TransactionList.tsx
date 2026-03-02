@@ -15,7 +15,7 @@ const TransactionList = ({ transactions }: TransactionListProps) => {
         <p className="text-sm text-muted-foreground mt-1">Dina senaste rörelser</p>
       </div>
       <div className="divide-y divide-border">
-        {mockTransactions.map((tx, i) => (
+        {transactions.map((tx, i) => (
           <motion.div
             key={tx.id}
             initial={{ opacity: 0, x: -10 }}
