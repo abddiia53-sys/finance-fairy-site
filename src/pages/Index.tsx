@@ -8,6 +8,7 @@ import TransactionList from "@/components/TransactionList";
 import QuickActions from "@/components/QuickActions";
 import BankConnectModal from "@/components/BankConnectModal";
 import AddTransactionModal from "@/components/AddTransactionModal";
+import FinancialInsights from "@/components/FinancialInsights";
 import { toast } from "sonner";
 
 export interface Transaction {
