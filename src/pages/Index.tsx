@@ -70,7 +70,6 @@ const Index = () => {
   const [mode, setMode] = useState<"personal" | "business">("business");
   const [bankModalOpen, setBankModalOpen] = useState(false);
   const [txModalOpen, setTxModalOpen] = useState(false);
-  const [txModalOpen, setTxModalOpen] = useState(false);
   const [txModalType, setTxModalType] = useState<"income" | "expense">("expense");
 
   const [businessTx, setBusinessTx] = useState<Transaction[]>(initialBusinessTx);
