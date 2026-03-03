@@ -64,8 +64,12 @@ function computeStats(transactions: Transaction[], mode: "business" | "personal"
 }
 
 const Index = () => {
+  const [onboarded, setOnboarded] = useState(() => {
+    return localStorage.getItem("26io_onboarded") === "true";
+  });
   const [mode, setMode] = useState<"personal" | "business">("business");
   const [bankModalOpen, setBankModalOpen] = useState(false);
+  const [txModalOpen, setTxModalOpen] = useState(false);
   const [txModalOpen, setTxModalOpen] = useState(false);
   const [txModalType, setTxModalType] = useState<"income" | "expense">("expense");
 
