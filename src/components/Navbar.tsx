@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
-import { Bell, Settings } from "lucide-react";
+import { Bell, Settings, LogOut } from "lucide-react";
 import ModeToggle from "./ModeToggle";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 interface NavbarProps {
   mode: "personal" | "business";
