@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
-import { Bell, Settings } from "lucide-react";
+import { Bell, Settings, LogOut } from "lucide-react";
 import ModeToggle from "./ModeToggle";
+import { useAuth } from "@/hooks/useAuth";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 interface NavbarProps {
   mode: "personal" | "business";
@@ -8,6 +11,15 @@ interface NavbarProps {
 }
 
 const Navbar = ({ mode, onModeChange }: NavbarProps) => {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    toast.success("Utloggad!");
+    navigate("/auth");
+  };
+
   return (
     <motion.header
       initial={{ opacity: 0, y: -10 }}
@@ -37,8 +49,11 @@ const Navbar = ({ mode, onModeChange }: NavbarProps) => {
           <Settings className="w-5 h-5" />
         </button>
         <div className="w-9 h-9 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center">
-          <span className="text-sm font-semibold text-primary">A</span>
+          <span className="text-sm font-semibold text-primary">{user?.email?.[0]?.toUpperCase() || "A"}</span>
         </div>
+        <button onClick={handleSignOut} className="p-2 rounded-lg hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground" title="Logga ut">
+          <LogOut className="w-5 h-5" />
+        </button>
       </div>
     </motion.header>
   );
