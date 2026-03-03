@@ -11,6 +11,15 @@ interface NavbarProps {
 }
 
 const Navbar = ({ mode, onModeChange }: NavbarProps) => {
+  const { user, signOut } = useAuth();
+  const navigate = useNavigate();
+
+  const handleSignOut = async () => {
+    await signOut();
+    toast.success("Utloggad!");
+    navigate("/auth");
+  };
+
   return (
     <motion.header
       initial={{ opacity: 0, y: -10 }}
