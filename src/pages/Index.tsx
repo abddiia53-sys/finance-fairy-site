@@ -9,6 +9,7 @@ import QuickActions from "@/components/QuickActions";
 import BankConnectModal from "@/components/BankConnectModal";
 import AddTransactionModal from "@/components/AddTransactionModal";
 import FinancialInsights from "@/components/FinancialInsights";
+import OnboardingBankConnect from "@/components/OnboardingBankConnect";
 import { toast } from "sonner";
 
 export interface Transaction {
@@ -63,6 +64,9 @@ function computeStats(transactions: Transaction[], mode: "business" | "personal"
 }
 
 const Index = () => {
+  const [onboarded, setOnboarded] = useState(() => {
+    return localStorage.getItem("26io_onboarded") === "true";
+  });
   const [mode, setMode] = useState<"personal" | "business">("business");
   const [bankModalOpen, setBankModalOpen] = useState(false);
   const [txModalOpen, setTxModalOpen] = useState(false);
@@ -104,6 +108,15 @@ const Index = () => {
 
   const openExpenseModal = () => { setTxModalType("expense"); setTxModalOpen(true); };
   const openIncomeModal = () => { setTxModalType("income"); setTxModalOpen(true); };
+
+  const handleOnboardingComplete = () => {
+    localStorage.setItem("26io_onboarded", "true");
+    setOnboarded(true);
+  };
+
+  if (!onboarded) {
+    return <OnboardingBankConnect onComplete={handleOnboardingComplete} />;
+  }
 
   return (
     <div className="min-h-screen bg-background">
