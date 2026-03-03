@@ -109,6 +109,15 @@ const Index = () => {
   const openExpenseModal = () => { setTxModalType("expense"); setTxModalOpen(true); };
   const openIncomeModal = () => { setTxModalType("income"); setTxModalOpen(true); };
 
+  const handleOnboardingComplete = () => {
+    localStorage.setItem("26io_onboarded", "true");
+    setOnboarded(true);
+  };
+
+  if (!onboarded) {
+    return <OnboardingBankConnect onComplete={handleOnboardingComplete} />;
+  }
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar mode={mode} onModeChange={setMode} />
