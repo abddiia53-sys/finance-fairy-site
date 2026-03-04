@@ -135,20 +135,19 @@ export type Database = {
       }
     }
     Views: {
-      monthly_stats: {
-        Row: {
-          month: string | null
-          net_result: number | null
-          total_expenses: number | null
-          total_income: number | null
-          transaction_count: number | null
-          user_id: string | null
-        }
-        Relationships: []
-      }
+      [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      get_monthly_stats: {
+        Args: { p_user_id: string }
+        Returns: {
+          month: string
+          net_result: number
+          total_expenses: number
+          total_income: number
+          transaction_count: number
+        }[]
+      }
     }
     Enums: {
       [_ in never]: never
