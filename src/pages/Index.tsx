@@ -9,6 +9,7 @@ import QuickActions from "@/components/QuickActions";
 import BankConnectModal from "@/components/BankConnectModal";
 import AddTransactionModal from "@/components/AddTransactionModal";
 import FinancialInsights from "@/components/FinancialInsights";
+import UnnecessaryCosts from "@/components/UnnecessaryCosts";
 import OnboardingBankConnect from "@/components/OnboardingBankConnect";
 import { toast } from "sonner";
 
@@ -148,6 +149,10 @@ const Index = () => {
             </div>
 
             <FinancialInsights transactions={transactions} mode={mode} />
+
+            <div className="mt-6">
+              <UnnecessaryCosts transactions={transactions} />
+            </div>
 
             <div className="mt-8">
               <TransactionList transactions={sortedTransactions} />
