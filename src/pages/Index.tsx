@@ -150,6 +150,10 @@ const Index = () => {
 
             <FinancialInsights transactions={transactions} mode={mode} />
 
+            <div className="mt-6">
+              <UnnecessaryCosts transactions={transactions} />
+            </div>
+
             <div className="mt-8">
               <TransactionList transactions={sortedTransactions} />
             </div>
