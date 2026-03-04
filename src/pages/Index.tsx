@@ -26,11 +26,20 @@ const initialBusinessTx: Transaction[] = [
   { id: "1", description: "Kundbetalning - Webbprojekt", amount: 45000, category: "Intäkt", date: "2026-02-28", type: "income" },
   { id: "2", description: "Kontorshyra", amount: -12500, category: "Lokal", date: "2026-02-27", type: "expense" },
   { id: "3", description: "Konsultarvode", amount: 28000, category: "Intäkt", date: "2026-02-25", type: "income" },
-  { id: "4", description: "Programvarulicenser", amount: -3200, category: "IT", date: "2026-02-24", type: "expense" },
+  { id: "4", description: "Adobe Creative Cloud", amount: -699, category: "IT", date: "2026-02-24", type: "expense" },
   { id: "5", description: "Lön", amount: -35000, category: "Personal", date: "2026-02-23", type: "expense" },
   { id: "6", description: "Försäljning produkter", amount: 18500, category: "Intäkt", date: "2026-02-22", type: "income" },
-  { id: "7", description: "Marknadsföring", amount: -8900, category: "Marknadsföring", date: "2026-02-20", type: "expense" },
+  { id: "7", description: "Marknadsföring Google Ads", amount: -8900, category: "Marknadsföring", date: "2026-02-20", type: "expense" },
   { id: "8", description: "Freelanceuppdrag", amount: 15000, category: "Intäkt", date: "2026-02-19", type: "income" },
+  { id: "9", description: "Spotify Premium Family", amount: -189, category: "IT", date: "2026-02-15", type: "expense" },
+  { id: "10", description: "ChatGPT Plus", amount: -249, category: "IT", date: "2026-02-14", type: "expense" },
+  { id: "11", description: "Microsoft 365 Business", amount: -159, category: "IT", date: "2026-02-13", type: "expense" },
+  { id: "12", description: "Slack Pro", amount: -129, category: "IT", date: "2026-02-12", type: "expense" },
+  { id: "13", description: "Figma Professional", amount: -149, category: "IT", date: "2026-02-11", type: "expense" },
+  { id: "14", description: "Canva Pro", amount: -129, category: "IT", date: "2026-02-10", type: "expense" },
+  { id: "15", description: "OpenAI API", amount: -450, category: "IT", date: "2026-02-09", type: "expense" },
+  { id: "16", description: "Netflix Standard", amount: -139, category: "IT", date: "2026-02-08", type: "expense" },
+  { id: "17", description: "Marknadsföring Facebook", amount: -12500, category: "Marknadsföring", date: "2026-01-20", type: "expense" },
 ];
 
 const initialPersonalTx: Transaction[] = [
