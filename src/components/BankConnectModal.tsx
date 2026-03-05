@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { Building2, Check, ChevronRight, Link2, Loader2, Shield, X } from "lucide-react";
+import { Link2, Shield, X, ExternalLink } from "lucide-react";
+import { openTinkLink } from "@/lib/tink";
 
 interface Bank {
   id: string;
