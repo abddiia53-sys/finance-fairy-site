@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Bell, Settings, LogOut } from "lucide-react";
 import ModeToggle from "./ModeToggle";
 import { useAuth } from "@/hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "sonner";
 
 interface NavbarProps {
@@ -13,6 +13,14 @@ interface NavbarProps {
 const Navbar = ({ mode, onModeChange }: NavbarProps) => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const navLinks = [
+    { label: "Dashboard", href: "/" },
+    { label: "Transaktioner", href: "/" },
+    { label: "Rapporter", href: "/rapporter" },
+    { label: "Fakturor", href: "/fakturor" },
+  ];
 
   const handleSignOut = async () => {
     await signOut();
@@ -33,10 +41,19 @@ const Navbar = ({ mode, onModeChange }: NavbarProps) => {
           <span className="text-muted-foreground">.io</span>
         </h1>
         <nav className="hidden md:flex items-center gap-6">
-          <a href="#" className="text-sm font-medium text-foreground hover:text-primary transition-colors">Dashboard</a>
-          <a href="#" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Transaktioner</a>
-          <a href="#" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Rapporter</a>
-          <a href="#" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">Fakturor</a>
+          {navLinks.map(link => (
+            <button
+              key={link.label}
+              onClick={() => navigate(link.href)}
+              className={`text-sm font-medium transition-colors ${
+                location.pathname === link.href
+                  ? "text-foreground"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
+            >
+              {link.label}
+            </button>
+          ))}
         </nav>
       </div>
 
