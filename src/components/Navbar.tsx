@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Bell, Settings, LogOut } from "lucide-react";
 import ModeToggle from "./ModeToggle";
 import { useAuth } from "@/hooks/useAuth";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "sonner";
 
 interface NavbarProps {
