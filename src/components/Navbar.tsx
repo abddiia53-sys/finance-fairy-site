@@ -13,6 +13,14 @@ interface NavbarProps {
 const Navbar = ({ mode, onModeChange }: NavbarProps) => {
   const { user, signOut } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const navLinks = [
+    { label: "Dashboard", href: "/" },
+    { label: "Transaktioner", href: "/" },
+    { label: "Rapporter", href: "/rapporter" },
+    { label: "Fakturor", href: "/fakturor" },
+  ];
 
   const handleSignOut = async () => {
     await signOut();
