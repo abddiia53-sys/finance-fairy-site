@@ -159,8 +159,14 @@ const Index = () => {
 
             <FinancialInsights transactions={transactions} mode={mode} />
 
+            {mode === "personal" && (
+              <div className="mt-6">
+                <UnnecessaryCosts transactions={transactions} />
+              </div>
+            )}
+
             <div className="mt-6">
-              <UnnecessaryCosts transactions={transactions} />
+              <FinancialHealth transactions={transactions} mode={mode} />
             </div>
 
             <div className="mt-8">
