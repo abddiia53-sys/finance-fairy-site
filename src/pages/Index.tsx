@@ -10,6 +10,7 @@ import BankConnectModal from "@/components/BankConnectModal";
 import AddTransactionModal from "@/components/AddTransactionModal";
 import FinancialInsights from "@/components/FinancialInsights";
 import UnnecessaryCosts from "@/components/UnnecessaryCosts";
+import FinancialHealth from "@/components/FinancialHealth";
 import OnboardingBankConnect from "@/components/OnboardingBankConnect";
 import { toast } from "sonner";
 
@@ -159,8 +160,14 @@ const Index = () => {
 
             <FinancialInsights transactions={transactions} mode={mode} />
 
+            {mode === "personal" && (
+              <div className="mt-6">
+                <UnnecessaryCosts transactions={transactions} />
+              </div>
+            )}
+
             <div className="mt-6">
-              <UnnecessaryCosts transactions={transactions} />
+              <FinancialHealth transactions={transactions} mode={mode} />
             </div>
 
             <div className="mt-8">
