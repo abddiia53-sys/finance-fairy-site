@@ -10,6 +10,7 @@ import BankConnectModal from "@/components/BankConnectModal";
 import AddTransactionModal from "@/components/AddTransactionModal";
 import FinancialInsights from "@/components/FinancialInsights";
 import UnnecessaryCosts from "@/components/UnnecessaryCosts";
+import FinancialHealth from "@/components/FinancialHealth";
 import OnboardingBankConnect from "@/components/OnboardingBankConnect";
 import { toast } from "sonner";
 
