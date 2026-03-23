@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { TrendingUp, TrendingDown, Wallet, PiggyBank } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import StatCard from "@/components/StatCard";
 import OverviewChart from "@/components/OverviewChart";
