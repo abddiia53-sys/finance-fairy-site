@@ -45,7 +45,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 const Reports = () => {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"personal" | "business">("business");
+  
 
   const summaryStats = useMemo(() => {
     const totalIncome = monthlyData.reduce((s, m) => s + m.intäkter, 0);
