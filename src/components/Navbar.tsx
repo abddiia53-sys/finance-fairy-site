@@ -52,7 +52,7 @@ const Navbar = () => {
       </div>
 
       <div className="flex items-center gap-4">
-        <ModeToggle mode={mode} onToggle={onModeChange} />
+        
         <button className="p-2 rounded-lg hover:bg-secondary transition-colors text-muted-foreground hover:text-foreground">
           <Bell className="w-5 h-5" />
         </button>
