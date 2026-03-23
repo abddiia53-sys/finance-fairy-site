@@ -43,13 +43,6 @@ const initialBusinessTx: Transaction[] = [
   { id: "17", description: "Marknadsföring Facebook", amount: -12500, category: "Marknadsföring", date: "2026-01-20", type: "expense" },
 ];
 
-const initialPersonalTx: Transaction[] = [
-  { id: "p1", description: "Lön", amount: 42000, category: "Lön", date: "2026-02-25", type: "income" },
-  { id: "p2", description: "Hyra", amount: -9500, category: "Boende", date: "2026-02-27", type: "expense" },
-  { id: "p3", description: "Matinköp", amount: -4200, category: "Mat", date: "2026-02-26", type: "expense" },
-  { id: "p4", description: "Elräkning", amount: -1800, category: "Räkningar", date: "2026-02-24", type: "expense" },
-  { id: "p5", description: "Sidoinkomst", amount: 5000, category: "Extra", date: "2026-02-20", type: "income" },
-];
 
 function computeStats(transactions: Transaction[], mode: "business" | "personal") {
   const totalIncome = transactions.filter(t => t.type === "income").reduce((s, t) => s + Math.abs(t.amount), 0);
