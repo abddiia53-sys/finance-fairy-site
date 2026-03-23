@@ -139,38 +139,28 @@ const Index = () => {
           <p className="text-muted-foreground mt-1">Håll koll på ditt företags ekonomi</p>
         </motion.div>
 
-        <AnimatePresence mode="wait">
-          <motion.div key={mode} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-              {stats.map((stat, i) => (
-                <StatCard key={stat.title} {...stat} delay={i * 0.1} />
-              ))}
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {stats.map((stat, i) => (
+            <StatCard key={stat.title} {...stat} delay={i * 0.1} />
+          ))}
+        </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-              <div className="lg:col-span-2">
-                <OverviewChart />
-              </div>
-              <QuickActions onConnectBank={() => setBankModalOpen(true)} onAddExpense={openExpenseModal} onAddIncome={openIncomeModal} />
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div className="lg:col-span-2">
+            <OverviewChart />
+          </div>
+          <QuickActions onConnectBank={() => setBankModalOpen(true)} onAddExpense={openExpenseModal} onAddIncome={openIncomeModal} />
+        </div>
 
-            <FinancialInsights transactions={transactions} mode={mode} />
+        <FinancialInsights transactions={transactions} mode="business" />
 
-            {mode === "personal" && (
-              <div className="mt-6">
-                <UnnecessaryCosts transactions={transactions} />
-              </div>
-            )}
+        <div className="mt-6">
+          <FinancialHealth transactions={transactions} mode="business" />
+        </div>
 
-            <div className="mt-6">
-              <FinancialHealth transactions={transactions} mode={mode} />
-            </div>
-
-            <div className="mt-8">
-              <TransactionList transactions={sortedTransactions} />
-            </div>
-          </motion.div>
-        </AnimatePresence>
+        <div className="mt-8">
+          <TransactionList transactions={sortedTransactions} />
+        </div>
       </main>
 
       <BankConnectModal open={bankModalOpen} onClose={() => setBankModalOpen(false)} onConnected={handleBankConnected} />
