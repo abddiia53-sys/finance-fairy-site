@@ -78,16 +78,11 @@ const Index = () => {
   const [onboarded, setOnboarded] = useState(() => {
     return localStorage.getItem("26io_onboarded") === "true";
   });
-  const [mode, setMode] = useState<"personal" | "business">("business");
   const [bankModalOpen, setBankModalOpen] = useState(false);
   const [txModalOpen, setTxModalOpen] = useState(false);
   const [txModalType, setTxModalType] = useState<"income" | "expense">("expense");
 
-  const [businessTx, setBusinessTx] = useState<Transaction[]>(initialBusinessTx);
-  const [personalTx, setPersonalTx] = useState<Transaction[]>(initialPersonalTx);
-
-  const transactions = mode === "business" ? businessTx : personalTx;
-  const setTransactions = mode === "business" ? setBusinessTx : setPersonalTx;
+  const [transactions, setTransactions] = useState<Transaction[]>(initialBusinessTx);
 
   const stats = useMemo(() => computeStats(transactions, "business"), [transactions]);
 
