@@ -135,12 +135,8 @@ const Index = () => {
 
       <main className="max-w-7xl mx-auto px-4 sm:px-8 py-8">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className="mb-8">
-          <h2 className="text-3xl font-display font-bold">
-            {mode === "business" ? "Företagsöversikt" : "Privatöversikt"}
-          </h2>
-          <p className="text-muted-foreground mt-1">
-            {mode === "business" ? "Håll koll på ditt företags ekonomi" : "Din personliga ekonomiska överblick"}
-          </p>
+          <h2 className="text-3xl font-display font-bold">Företagsöversikt</h2>
+          <p className="text-muted-foreground mt-1">Håll koll på ditt företags ekonomi</p>
         </motion.div>
 
         <AnimatePresence mode="wait">
