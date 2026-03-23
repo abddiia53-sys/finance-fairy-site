@@ -131,7 +131,7 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar mode={mode} onModeChange={setMode} />
+      <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-8 py-8">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className="mb-8">
