@@ -45,7 +45,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 const Reports = () => {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"personal" | "business">("business");
+  
 
   const summaryStats = useMemo(() => {
     const totalIncome = monthlyData.reduce((s, m) => s + m.intäkter, 0);
@@ -65,7 +65,7 @@ const Reports = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar mode={mode} onModeChange={setMode} />
+      <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-8 py-8">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-8">

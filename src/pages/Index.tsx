@@ -1,6 +1,6 @@
 import { useState, useMemo } from "react";
 import { TrendingUp, TrendingDown, Wallet, PiggyBank } from "lucide-react";
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
 import StatCard from "@/components/StatCard";
 import OverviewChart from "@/components/OverviewChart";
@@ -9,7 +9,7 @@ import QuickActions from "@/components/QuickActions";
 import BankConnectModal from "@/components/BankConnectModal";
 import AddTransactionModal from "@/components/AddTransactionModal";
 import FinancialInsights from "@/components/FinancialInsights";
-import UnnecessaryCosts from "@/components/UnnecessaryCosts";
+
 import FinancialHealth from "@/components/FinancialHealth";
 import OnboardingBankConnect from "@/components/OnboardingBankConnect";
 import { toast } from "sonner";
@@ -43,13 +43,6 @@ const initialBusinessTx: Transaction[] = [
   { id: "17", description: "Marknadsföring Facebook", amount: -12500, category: "Marknadsföring", date: "2026-01-20", type: "expense" },
 ];
 
-const initialPersonalTx: Transaction[] = [
-  { id: "p1", description: "Lön", amount: 42000, category: "Lön", date: "2026-02-25", type: "income" },
-  { id: "p2", description: "Hyra", amount: -9500, category: "Boende", date: "2026-02-27", type: "expense" },
-  { id: "p3", description: "Matinköp", amount: -4200, category: "Mat", date: "2026-02-26", type: "expense" },
-  { id: "p4", description: "Elräkning", amount: -1800, category: "Räkningar", date: "2026-02-24", type: "expense" },
-  { id: "p5", description: "Sidoinkomst", amount: 5000, category: "Extra", date: "2026-02-20", type: "income" },
-];
 
 function computeStats(transactions: Transaction[], mode: "business" | "personal") {
   const totalIncome = transactions.filter(t => t.type === "income").reduce((s, t) => s + Math.abs(t.amount), 0);
@@ -78,18 +71,13 @@ const Index = () => {
   const [onboarded, setOnboarded] = useState(() => {
     return localStorage.getItem("26io_onboarded") === "true";
   });
-  const [mode, setMode] = useState<"personal" | "business">("business");
   const [bankModalOpen, setBankModalOpen] = useState(false);
   const [txModalOpen, setTxModalOpen] = useState(false);
   const [txModalType, setTxModalType] = useState<"income" | "expense">("expense");
 
-  const [businessTx, setBusinessTx] = useState<Transaction[]>(initialBusinessTx);
-  const [personalTx, setPersonalTx] = useState<Transaction[]>(initialPersonalTx);
+  const [transactions, setTransactions] = useState<Transaction[]>(initialBusinessTx);
 
-  const transactions = mode === "business" ? businessTx : personalTx;
-  const setTransactions = mode === "business" ? setBusinessTx : setPersonalTx;
-
-  const stats = useMemo(() => computeStats(transactions, mode), [transactions, mode]);
+  const stats = useMemo(() => computeStats(transactions, "business"), [transactions]);
 
   const sortedTransactions = useMemo(
     () => [...transactions].sort((a, b) => b.date.localeCompare(a.date)),
@@ -131,50 +119,36 @@ const Index = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar mode={mode} onModeChange={setMode} />
+      <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-8 py-8">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }} className="mb-8">
-          <h2 className="text-3xl font-display font-bold">
-            {mode === "business" ? "Företagsöversikt" : "Privatöversikt"}
-          </h2>
-          <p className="text-muted-foreground mt-1">
-            {mode === "business" ? "Håll koll på ditt företags ekonomi" : "Din personliga ekonomiska överblick"}
-          </p>
+          <h2 className="text-3xl font-display font-bold">Företagsöversikt</h2>
+          <p className="text-muted-foreground mt-1">Håll koll på ditt företags ekonomi</p>
         </motion.div>
 
-        <AnimatePresence mode="wait">
-          <motion.div key={mode} initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -10 }} transition={{ duration: 0.3 }}>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
-              {stats.map((stat, i) => (
-                <StatCard key={stat.title} {...stat} delay={i * 0.1} />
-              ))}
-            </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+          {stats.map((stat, i) => (
+            <StatCard key={stat.title} {...stat} delay={i * 0.1} />
+          ))}
+        </div>
 
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-              <div className="lg:col-span-2">
-                <OverviewChart />
-              </div>
-              <QuickActions onConnectBank={() => setBankModalOpen(true)} onAddExpense={openExpenseModal} onAddIncome={openIncomeModal} />
-            </div>
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+          <div className="lg:col-span-2">
+            <OverviewChart />
+          </div>
+          <QuickActions onConnectBank={() => setBankModalOpen(true)} onAddExpense={openExpenseModal} onAddIncome={openIncomeModal} />
+        </div>
 
-            <FinancialInsights transactions={transactions} mode={mode} />
+        <FinancialInsights transactions={transactions} mode="business" />
 
-            {mode === "personal" && (
-              <div className="mt-6">
-                <UnnecessaryCosts transactions={transactions} />
-              </div>
-            )}
+        <div className="mt-6">
+          <FinancialHealth transactions={transactions} mode="business" />
+        </div>
 
-            <div className="mt-6">
-              <FinancialHealth transactions={transactions} mode={mode} />
-            </div>
-
-            <div className="mt-8">
-              <TransactionList transactions={sortedTransactions} />
-            </div>
-          </motion.div>
-        </AnimatePresence>
+        <div className="mt-8">
+          <TransactionList transactions={sortedTransactions} />
+        </div>
       </main>
 
       <BankConnectModal open={bankModalOpen} onClose={() => setBankModalOpen(false)} onConnected={handleBankConnected} />

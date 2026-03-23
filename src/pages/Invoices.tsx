@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { motion } from "framer-motion";
 import { FileText, ArrowLeft, CheckCircle2, Clock, AlertCircle } from "lucide-react";
 import { useNavigate } from "react-router-dom";
@@ -32,7 +31,6 @@ const statusConfig = {
 
 const Invoices = () => {
   const navigate = useNavigate();
-  const [mode, setMode] = useState<"personal" | "business">("business");
 
   const fmt = (v: number) => v.toLocaleString("sv-SE") + " kr";
 
@@ -42,7 +40,7 @@ const Invoices = () => {
 
   return (
     <div className="min-h-screen bg-background">
-      <Navbar mode={mode} onModeChange={setMode} />
+      <Navbar />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-8 py-8">
         <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mb-8">
