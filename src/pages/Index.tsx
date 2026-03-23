@@ -89,7 +89,7 @@ const Index = () => {
   const transactions = mode === "business" ? businessTx : personalTx;
   const setTransactions = mode === "business" ? setBusinessTx : setPersonalTx;
 
-  const stats = useMemo(() => computeStats(transactions, mode), [transactions, mode]);
+  const stats = useMemo(() => computeStats(transactions, "business"), [transactions]);
 
   const sortedTransactions = useMemo(
     () => [...transactions].sort((a, b) => b.date.localeCompare(a.date)),
