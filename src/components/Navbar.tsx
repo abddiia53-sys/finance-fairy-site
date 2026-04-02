@@ -3,6 +3,7 @@ import { Bell, Settings, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "sonner";
+import logo from "@/assets/finance-fairy-logo.png";
 
 const Navbar = () => {
   const { user, signOut } = useAuth();
