@@ -3,6 +3,7 @@ import { Bell, Settings, LogOut } from "lucide-react";
 import { useAuth } from "@/hooks/useAuth";
 import { useNavigate, useLocation } from "react-router-dom";
 import { toast } from "sonner";
+import logo from "@/assets/finance-fairy-logo.png";
 
 const Navbar = () => {
   const { user, signOut } = useAuth();
@@ -30,10 +31,13 @@ const Navbar = () => {
       className="flex items-center justify-between px-8 py-4 border-b border-border bg-card/50 backdrop-blur-xl sticky top-0 z-50"
     >
       <div className="flex items-center gap-8">
-        <h1 className="text-2xl font-display font-bold">
-          <span className="text-gradient">26</span>
-          <span className="text-muted-foreground">.io</span>
-        </h1>
+        <div className="flex items-center gap-2">
+          <img src={logo} alt="Finance Fairy" className="w-8 h-8 object-contain" />
+          <h1 className="text-xl font-display font-bold">
+            <span className="text-foreground">Finance</span>{" "}
+            <span className="text-gradient">Fairy</span>
+          </h1>
+        </div>
         <nav className="hidden md:flex items-center gap-6">
           {navLinks.map(link => (
             <button
