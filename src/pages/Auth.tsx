@@ -8,6 +8,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { toast } from "sonner";
 import { Mail, Lock, ArrowRight, Smartphone } from "lucide-react";
+import logo from "@/assets/finance-fairy-logo.png";
 import BankIDSimulator from "@/components/BankIDSimulator";
 
 const Auth = () => {
@@ -100,12 +101,13 @@ const Auth = () => {
           transition={{ duration: 0.5 }}
           className="w-full max-w-md"
         >
-          <div className="text-center mb-8">
+          <div className="text-center mb-8 flex flex-col items-center gap-3">
+            <img src={logo} alt="Finance Fairy" className="w-16 h-16 object-contain" />
             <h1 className="text-3xl font-display font-bold">
-              <span className="text-gradient">26</span>
-              <span className="text-muted-foreground">.io</span>
+              <span className="text-foreground">Finance</span>{" "}
+              <span className="text-gradient">Fairy</span>
             </h1>
-            <p className="text-muted-foreground mt-2">Din ekonomiska överblick</p>
+            <p className="text-muted-foreground">Din ekonomiska överblick</p>
           </div>
 
           <Card>
