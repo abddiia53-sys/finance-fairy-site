@@ -14,7 +14,6 @@ const Navbar = () => {
     { label: "Dashboard", href: "/" },
     { label: "Transaktioner", href: "/" },
     { label: "Rapporter", href: "/rapporter" },
-    { label: "Fakturor", href: "/fakturor" },
   ];
 
   const handleSignOut = async () => {
