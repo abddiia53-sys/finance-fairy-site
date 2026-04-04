@@ -4,27 +4,28 @@ import { BarChart3, TrendingUp, TrendingDown, Wallet, ArrowLeft } from "lucide-r
 import { useNavigate } from "react-router-dom";
 import {
   AreaChart, Area, BarChart, Bar, PieChart, Pie, Cell,
-  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Legend,
+  XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer,
 } from "recharts";
 import Navbar from "@/components/Navbar";
-import { useState } from "react";
 
 const monthlyData = [
-  { month: "Sep", intäkter: 62000, utgifter: 41000 },
-  { month: "Okt", intäkter: 78000, utgifter: 48000 },
-  { month: "Nov", intäkter: 55000, utgifter: 39000 },
-  { month: "Dec", intäkter: 91000, utgifter: 52000 },
-  { month: "Jan", intäkter: 84000, utgifter: 45000 },
-  { month: "Feb", intäkter: 106500, utgifter: 59600 },
+  { month: "Sep", inkomst: 32000, utgifter: 22000 },
+  { month: "Okt", inkomst: 33500, utgifter: 24500 },
+  { month: "Nov", inkomst: 32000, utgifter: 21000 },
+  { month: "Dec", inkomst: 37000, utgifter: 28000 },
+  { month: "Jan", inkomst: 32500, utgifter: 23000 },
+  { month: "Feb", inkomst: 37500, utgifter: 17443 },
 ];
 
 const categoryData = [
-  { name: "Lokal", value: 12500, color: "hsl(155, 60%, 48%)" },
-  { name: "Personal", value: 35000, color: "hsl(210, 80%, 55%)" },
-  { name: "IT", value: 2243, color: "hsl(280, 60%, 55%)" },
-  { name: "Marknadsföring", value: 21400, color: "hsl(45, 80%, 55%)" },
-  { name: "Mat", value: 4200, color: "hsl(0, 65%, 52%)" },
-  { name: "Boende", value: 9500, color: "hsl(30, 70%, 50%)" },
+  { name: "Boende", value: 10390, color: "hsl(210, 80%, 55%)" },
+  { name: "Mat", value: 2470, color: "hsl(155, 60%, 48%)" },
+  { name: "Transport", value: 970, color: "hsl(45, 80%, 55%)" },
+  { name: "Nöje", value: 447, color: "hsl(280, 60%, 55%)" },
+  { name: "Abonnemang", value: 598, color: "hsl(0, 65%, 52%)" },
+  { name: "Hälsa", value: 449, color: "hsl(30, 70%, 50%)" },
+  { name: "Kläder", value: 799, color: "hsl(340, 60%, 55%)" },
+  { name: "Försäkring", value: 320, color: "hsl(180, 50%, 45%)" },
 ];
 
 const CustomTooltip = ({ active, payload, label }: any) => {
@@ -45,10 +46,9 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 const Reports = () => {
   const navigate = useNavigate();
-  
 
   const summaryStats = useMemo(() => {
-    const totalIncome = monthlyData.reduce((s, m) => s + m.intäkter, 0);
+    const totalIncome = monthlyData.reduce((s, m) => s + m.inkomst, 0);
     const totalExpense = monthlyData.reduce((s, m) => s + m.utgifter, 0);
     const net = totalIncome - totalExpense;
     const avgIncome = Math.round(totalIncome / monthlyData.length);
@@ -60,7 +60,7 @@ const Reports = () => {
 
   const netData = monthlyData.map(m => ({
     month: m.month,
-    netto: m.intäkter - m.utgifter,
+    saldo: m.inkomst - m.utgifter,
   }));
 
   return (
@@ -76,7 +76,7 @@ const Reports = () => {
             <BarChart3 className="w-7 h-7 text-primary" />
             <div>
               <h2 className="text-3xl font-display font-bold">Rapporter</h2>
-              <p className="text-muted-foreground mt-1">Detaljerad ekonomisk statistik över 6 månader</p>
+              <p className="text-muted-foreground mt-1">Översikt av din privatekonomi de senaste 6 månaderna</p>
             </div>
           </div>
         </motion.div>
@@ -84,9 +84,9 @@ const Reports = () => {
         {/* Summary cards */}
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 mb-8">
           {[
-            { label: "Total intäkt", value: fmt(summaryStats.totalIncome), icon: TrendingUp, cls: "text-[hsl(var(--success))]" },
+            { label: "Total inkomst", value: fmt(summaryStats.totalIncome), icon: TrendingUp, cls: "text-[hsl(var(--success))]" },
             { label: "Totala utgifter", value: fmt(summaryStats.totalExpense), icon: TrendingDown, cls: "text-destructive" },
-            { label: "Nettoresultat", value: fmt(summaryStats.net), icon: Wallet, cls: summaryStats.net >= 0 ? "text-[hsl(var(--success))]" : "text-destructive" },
+            { label: "Saldo", value: fmt(summaryStats.net), icon: Wallet, cls: summaryStats.net >= 0 ? "text-[hsl(var(--success))]" : "text-destructive" },
           ].map((card, i) => (
             <motion.div
               key={card.label}
@@ -107,9 +107,8 @@ const Reports = () => {
 
         {/* Charts */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Revenue vs Expenses */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.2 }} className="glass-card rounded-xl p-6">
-            <h3 className="text-lg font-display font-semibold mb-4">Intäkter vs Utgifter</h3>
+            <h3 className="text-lg font-display font-semibold mb-4">Inkomst vs Utgifter</h3>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <AreaChart data={monthlyData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
@@ -127,16 +126,15 @@ const Reports = () => {
                   <XAxis dataKey="month" stroke="hsl(215, 12%, 50%)" fontSize={12} tickLine={false} axisLine={false} />
                   <YAxis stroke="hsl(215, 12%, 50%)" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(v) => `${v / 1000}k`} />
                   <Tooltip content={<CustomTooltip />} />
-                  <Area type="monotone" dataKey="intäkter" name="Intäkter" stroke="hsl(155, 60%, 48%)" fill="url(#rIncGrad)" strokeWidth={2} />
+                  <Area type="monotone" dataKey="inkomst" name="Inkomst" stroke="hsl(155, 60%, 48%)" fill="url(#rIncGrad)" strokeWidth={2} />
                   <Area type="monotone" dataKey="utgifter" name="Utgifter" stroke="hsl(0, 65%, 52%)" fill="url(#rExpGrad)" strokeWidth={2} />
                 </AreaChart>
               </ResponsiveContainer>
             </div>
           </motion.div>
 
-          {/* Net result bar chart */}
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.3 }} className="glass-card rounded-xl p-6">
-            <h3 className="text-lg font-display font-semibold mb-4">Nettoresultat per månad</h3>
+            <h3 className="text-lg font-display font-semibold mb-4">Saldo per månad</h3>
             <div className="h-64">
               <ResponsiveContainer width="100%" height="100%">
                 <BarChart data={netData} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
@@ -144,7 +142,7 @@ const Reports = () => {
                   <XAxis dataKey="month" stroke="hsl(215, 12%, 50%)" fontSize={12} tickLine={false} axisLine={false} />
                   <YAxis stroke="hsl(215, 12%, 50%)" fontSize={12} tickLine={false} axisLine={false} tickFormatter={(v) => `${v / 1000}k`} />
                   <Tooltip content={<CustomTooltip />} />
-                  <Bar dataKey="netto" name="Netto" fill="hsl(155, 60%, 48%)" radius={[4, 4, 0, 0]} />
+                  <Bar dataKey="saldo" name="Saldo" fill="hsl(155, 60%, 48%)" radius={[4, 4, 0, 0]} />
                 </BarChart>
               </ResponsiveContainer>
             </div>
@@ -168,7 +166,7 @@ const Reports = () => {
               </ResponsiveContainer>
             </div>
             <div className="flex-1 space-y-3 w-full">
-              {categoryData.map((cat, i) => (
+              {categoryData.map((cat) => (
                 <div key={cat.name} className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
                     <div className="w-3 h-3 rounded-full" style={{ backgroundColor: cat.color }} />
@@ -186,7 +184,7 @@ const Reports = () => {
           <h3 className="text-lg font-display font-semibold mb-4">Månadssnitt</h3>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div className="p-4 rounded-lg bg-muted/30">
-              <p className="text-sm text-muted-foreground">Snittintäkt / mån</p>
+              <p className="text-sm text-muted-foreground">Snittinkomst / mån</p>
               <p className="text-xl font-display font-bold text-[hsl(var(--success))]">{fmt(summaryStats.avgIncome)}</p>
             </div>
             <div className="p-4 rounded-lg bg-muted/30">
