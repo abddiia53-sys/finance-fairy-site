@@ -18,8 +18,8 @@ const OnboardingBankConnect = ({ onComplete }: OnboardingBankConnectProps) => {
       >
         <div className="text-center mb-8">
           <h1 className="text-3xl font-display font-bold">
-            <span className="text-gradient">26</span>
-            <span className="text-muted-foreground">.io</span>
+            <span className="text-foreground">Finance</span>{" "}
+            <span className="text-gradient">Fairy</span>
           </h1>
         </div>
 

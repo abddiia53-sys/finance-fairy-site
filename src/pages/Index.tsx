@@ -12,6 +12,7 @@ import FinancialInsights from "@/components/FinancialInsights";
 import FinancialHealth from "@/components/FinancialHealth";
 import UnnecessaryCosts from "@/components/UnnecessaryCosts";
 import OnboardingBankConnect from "@/components/OnboardingBankConnect";
+import { useTransactions, useBankConnected } from "@/hooks/useTransactions";
 import { toast } from "sonner";
 
 export interface Transaction {
@@ -64,7 +65,26 @@ const Index = () => {
   const [txModalOpen, setTxModalOpen] = useState(false);
   const [txModalType, setTxModalType] = useState<"income" | "expense">("expense");
 
-  const [transactions, setTransactions] = useState<Transaction[]>(initialPersonalTx);
+  const [localTransactions, setLocalTransactions] = useState<Transaction[]>(initialPersonalTx);
+
+  // Fetch real transactions from database
+  const { data: dbTransactions } = useTransactions();
+  const { data: hasBankConnected } = useBankConnected();
+
+  // Use database transactions if bank is connected, otherwise use local demo data
+  const transactions = useMemo(() => {
+    if (hasBankConnected && dbTransactions && dbTransactions.length > 0) {
+      return dbTransactions.map(t => ({
+        id: t.id,
+        description: t.description,
+        amount: t.type === "expense" ? -t.amount : t.amount,
+        category: t.category,
+        date: t.date,
+        type: t.type as "income" | "expense",
+      }));
+    }
+    return localTransactions;
+  }, [hasBankConnected, dbTransactions, localTransactions]);
 
   const stats = useMemo(() => computeStats(transactions), [transactions]);
 
@@ -88,7 +108,7 @@ const Index = () => {
       date: tx.date || new Date().toISOString().split("T")[0],
       type: tx.type,
     };
-    setTransactions(prev => [newTx, ...prev]);
+    setLocalTransactions(prev => [newTx, ...prev]);
     toast.success(`${tx.type === "income" ? "Inkomst" : "Utgift"} tillagd`, {
       description: `${tx.description} – ${tx.amount.toLocaleString("sv-SE")} kr`,
     });
