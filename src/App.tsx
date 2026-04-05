@@ -31,7 +31,7 @@ const App = () => (
             <Route path="/auth" element={<Auth />} />
             <Route path="/" element={<ProtectedRoute><Index /></ProtectedRoute>} />
             <Route path="/rapporter" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
-            
+            <Route path="/tink-callback" element={<ProtectedRoute><TinkCallback /></ProtectedRoute>} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </AuthProvider>
