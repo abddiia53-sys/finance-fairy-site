@@ -108,7 +108,7 @@ const Index = () => {
       date: tx.date || new Date().toISOString().split("T")[0],
       type: tx.type,
     };
-    setTransactions(prev => [newTx, ...prev]);
+    setLocalTransactions(prev => [newTx, ...prev]);
     toast.success(`${tx.type === "income" ? "Inkomst" : "Utgift"} tillagd`, {
       description: `${tx.description} – ${tx.amount.toLocaleString("sv-SE")} kr`,
     });
