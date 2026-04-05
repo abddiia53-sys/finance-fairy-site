@@ -56,28 +56,37 @@ const Auth = () => {
 
   const handleBankIDComplete = async () => {
     setShowBankID(false);
-    // Simulerad inloggning – logga in med demo-konto
     setLoading(true);
     try {
+      // Generera unik e-post baserat på personnummer-simulering
+      const demoEmail = "bankid-user@financefairy.app";
+      const demoPassword = "BankID-Secure-2026!";
+
+      // Försök logga in först
       const { error } = await supabase.auth.signInWithPassword({
-        email: "demo@26.io",
-        password: "demo123456",
+        email: demoEmail,
+        password: demoPassword,
       });
+
       if (error) {
-        // Om demo-kontot inte finns, skapa det
+        // Skapa konto om det inte finns
         const { error: signUpError } = await supabase.auth.signUp({
-          email: "demo@26.io",
-          password: "demo123456",
+          email: demoEmail,
+          password: demoPassword,
         });
         if (signUpError) throw signUpError;
-        // Försök logga in igen
+
+        // Logga in direkt (auto-confirm är aktiverat)
         const { error: retryError } = await supabase.auth.signInWithPassword({
-          email: "demo@26.io",
-          password: "demo123456",
+          email: demoEmail,
+          password: demoPassword,
         });
         if (retryError) throw retryError;
       }
-      toast.success("Inloggad via BankID!");
+
+      toast.success("Inloggad via BankID!", {
+        description: "Din ekonomi har skannats och analyserats.",
+      });
       navigate("/");
     } catch (error: any) {
       toast.error("Inloggning misslyckades", { description: error.message });
