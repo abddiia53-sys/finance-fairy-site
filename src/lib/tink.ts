@@ -17,6 +17,7 @@ export function openTinkLink() {
   tinkUrl.searchParams.set("scope", "accounts:read,transactions:read");
   tinkUrl.searchParams.set("market", "SE");
   tinkUrl.searchParams.set("locale", "sv_SE");
+  tinkUrl.searchParams.set("iframe", "false");
   tinkUrl.searchParams.set("state", state);
 
   window.location.href = tinkUrl.toString();
