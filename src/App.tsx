@@ -9,6 +9,7 @@ import Auth from "./pages/Auth";
 import Reports from "./pages/Reports";
 
 import TinkCallback from "./pages/TinkCallback";
+import BankIDCallback from "./pages/BankIDCallback";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -29,6 +30,7 @@ const App = () => (
         <AuthProvider>
           <Routes>
             <Route path="/auth" element={<Auth />} />
+            <Route path="/bankid-callback" element={<BankIDCallback />} />
             <Route path="/" element={<ProtectedRoute><Index /></ProtectedRoute>} />
             <Route path="/rapporter" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
             <Route path="/tink-callback" element={<ProtectedRoute><TinkCallback /></ProtectedRoute>} />
