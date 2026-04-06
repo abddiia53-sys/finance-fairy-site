@@ -9,14 +9,13 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { toast } from "sonner";
 import { Mail, Lock, ArrowRight, Smartphone } from "lucide-react";
 import logo from "@/assets/finance-fairy-logo.png";
-import BankIDSimulator from "@/components/BankIDSimulator";
+import { openTinkBankIDLogin } from "@/lib/tink";
 
 const Auth = () => {
   const [isLogin, setIsLogin] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
-  const [showBankID, setShowBankID] = useState(false);
   const [authMode, setAuthMode] = useState<"bankid" | "email">("bankid");
   const navigate = useNavigate();
 
@@ -51,58 +50,11 @@ const Auth = () => {
   };
 
   const handleBankIDLogin = () => {
-    setShowBankID(true);
-  };
-
-  const handleBankIDComplete = async () => {
-    setShowBankID(false);
-    setLoading(true);
-    try {
-      // Generera unik e-post baserat på personnummer-simulering
-      const demoEmail = "bankid-user@financefairy.app";
-      const demoPassword = "BankID-Secure-2026!";
-
-      // Försök logga in först
-      const { error } = await supabase.auth.signInWithPassword({
-        email: demoEmail,
-        password: demoPassword,
-      });
-
-      if (error) {
-        // Skapa konto om det inte finns
-        const { error: signUpError } = await supabase.auth.signUp({
-          email: demoEmail,
-          password: demoPassword,
-        });
-        if (signUpError) throw signUpError;
-
-        // Logga in direkt (auto-confirm är aktiverat)
-        const { error: retryError } = await supabase.auth.signInWithPassword({
-          email: demoEmail,
-          password: demoPassword,
-        });
-        if (retryError) throw retryError;
-      }
-
-      toast.success("Inloggad via BankID!", {
-        description: "Din ekonomi har skannats och analyserats.",
-      });
-      navigate("/");
-    } catch (error: any) {
-      toast.error("Inloggning misslyckades", { description: error.message });
-    } finally {
-      setLoading(false);
-    }
+    openTinkBankIDLogin();
   };
 
   return (
     <>
-      {showBankID && (
-        <BankIDSimulator
-          onComplete={handleBankIDComplete}
-          onCancel={() => setShowBankID(false)}
-        />
-      )}
       <div className="min-h-screen bg-background flex items-center justify-center px-4">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
