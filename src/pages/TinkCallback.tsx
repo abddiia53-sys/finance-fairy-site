@@ -13,11 +13,22 @@ const TinkCallback = () => {
 
   useEffect(() => {
     const code = searchParams.get("code");
+    const returnedState = searchParams.get("state");
+    const savedState = sessionStorage.getItem("tink_oauth_state");
+
     if (!code) {
       toast.error("Ingen auktoriseringskod från Tink");
       navigate("/");
       return;
     }
+
+    if (!returnedState || returnedState !== savedState) {
+      toast.error("Ogiltig state-parameter – möjlig CSRF-attack");
+      navigate("/");
+      return;
+    }
+
+    sessionStorage.removeItem("tink_oauth_state");
 
     const processCallback = async () => {
       try {
