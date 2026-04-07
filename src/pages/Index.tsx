@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useCallback } from "react";
 import { TrendingUp, TrendingDown, Wallet, PiggyBank } from "lucide-react";
 import { motion } from "framer-motion";
 import Navbar from "@/components/Navbar";
@@ -11,6 +11,7 @@ import AddTransactionModal from "@/components/AddTransactionModal";
 import FinancialInsights from "@/components/FinancialInsights";
 import FinancialHealth from "@/components/FinancialHealth";
 import UnnecessaryCosts from "@/components/UnnecessaryCosts";
+import MonthDetailModal from "@/components/MonthDetailModal";
 import OnboardingBankConnect from "@/components/OnboardingBankConnect";
 import { useTransactions, useBankConnected } from "@/hooks/useTransactions";
 import { toast } from "sonner";
@@ -64,6 +65,7 @@ const Index = () => {
   const [bankModalOpen, setBankModalOpen] = useState(false);
   const [txModalOpen, setTxModalOpen] = useState(false);
   const [txModalType, setTxModalType] = useState<"income" | "expense">("expense");
+  const [selectedMonth, setSelectedMonth] = useState<string | null>(null);
 
   const [localTransactions, setLocalTransactions] = useState<Transaction[]>(initialPersonalTx);
 
@@ -144,7 +146,7 @@ const Index = () => {
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
           <div className="lg:col-span-2">
-            <OverviewChart />
+            <OverviewChart onMonthClick={(m) => setSelectedMonth(m)} />
           </div>
           <QuickActions onConnectBank={() => setBankModalOpen(true)} onAddExpense={openExpenseModal} onAddIncome={openIncomeModal} />
         </div>
@@ -166,6 +168,7 @@ const Index = () => {
 
       <BankConnectModal open={bankModalOpen} onClose={() => setBankModalOpen(false)} onConnected={handleBankConnected} />
       <AddTransactionModal open={txModalOpen} onClose={() => setTxModalOpen(false)} onAdd={handleAddTransaction} initialType={txModalType} />
+      <MonthDetailModal open={!!selectedMonth} onClose={() => setSelectedMonth(null)} month={selectedMonth} transactions={transactions} />
     </div>
   );
 };
