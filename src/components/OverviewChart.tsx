@@ -26,7 +26,17 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
-const OverviewChart = () => {
+interface OverviewChartProps {
+  onMonthClick?: (month: string) => void;
+}
+
+const OverviewChart = ({ onMonthClick }: OverviewChartProps) => {
+  const handleClick = (data: any) => {
+    if (data?.activeLabel && onMonthClick) {
+      onMonthClick(data.activeLabel);
+    }
+  };
+
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}
@@ -40,7 +50,7 @@ const OverviewChart = () => {
       </div>
       <div className="h-72">
         <ResponsiveContainer width="100%" height="100%">
-          <AreaChart data={data} margin={{ top: 5, right: 5, left: -20, bottom: 0 }}>
+          <AreaChart data={data} margin={{ top: 5, right: 5, left: -20, bottom: 0 }} onClick={handleClick} style={{ cursor: "pointer" }}>
             <defs>
               <linearGradient id="incomeGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="hsl(155, 60%, 48%)" stopOpacity={0.3} />
