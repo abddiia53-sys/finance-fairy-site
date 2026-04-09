@@ -159,7 +159,22 @@ const FairyChat = () => {
                 <div className="text-center text-muted-foreground text-sm mt-8">
                   <p className="text-3xl mb-2">🧚</p>
                   <p>Hej! Jag är Fairy.</p>
-                  <p>Fråga mig om din ekonomi!</p>
+                  <p className="mb-4">Fråga mig om din ekonomi!</p>
+                  <div className="flex flex-col gap-2 mt-2">
+                    {[
+                      "Hur ser min budget ut denna månad?",
+                      "Var kan jag spara pengar?",
+                      "Vilka är mina största utgifter?",
+                    ].map((q) => (
+                      <button
+                        key={q}
+                        onClick={() => { setInput(q); }}
+                        className="text-xs border border-emerald-500/30 text-emerald-600 dark:text-emerald-400 rounded-full px-3 py-1.5 hover:bg-emerald-500/10 transition-colors"
+                      >
+                        {q}
+                      </button>
+                    ))}
+                  </div>
                 </div>
               )}
               <div className="space-y-3">
