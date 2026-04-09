@@ -12,6 +12,7 @@ import FinancialInsights from "@/components/FinancialInsights";
 import FinancialHealth from "@/components/FinancialHealth";
 import UnnecessaryCosts from "@/components/UnnecessaryCosts";
 import MonthDetailModal from "@/components/MonthDetailModal";
+import FairyChat from "@/components/FairyChat";
 import OnboardingBankConnect from "@/components/OnboardingBankConnect";
 import { useTransactions, useBankConnected } from "@/hooks/useTransactions";
 import { toast } from "sonner";
@@ -169,6 +170,7 @@ const Index = () => {
       <BankConnectModal open={bankModalOpen} onClose={() => setBankModalOpen(false)} onConnected={handleBankConnected} />
       <AddTransactionModal open={txModalOpen} onClose={() => setTxModalOpen(false)} onAdd={handleAddTransaction} initialType={txModalType} />
       <MonthDetailModal open={!!selectedMonth} onClose={() => setSelectedMonth(null)} month={selectedMonth} transactions={transactions} />
+      <FairyChat />
     </div>
   );
 };
