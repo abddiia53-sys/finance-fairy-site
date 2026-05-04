@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { ArrowRight, BarChart3, Brain, Shield, Sparkles, PiggyBank, TrendingUp } from "lucide-react";
 import logo from "@/assets/finance-fairy-logo.png";
+import appScreenshots from "@/assets/app-screenshots.png";
 
 const features = [
   {
@@ -87,50 +88,19 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Screenshot / Preview */}
+      {/* App Screenshots */}
       <section className="max-w-5xl mx-auto px-6 sm:px-10 -mt-4 mb-16">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.7 }}
-          className="rounded-2xl border border-border bg-card/50 p-2 shadow-2xl shadow-primary/5"
         >
-          <div className="rounded-xl bg-background border border-border overflow-hidden">
-            <div className="flex items-center gap-2 px-4 py-2.5 border-b border-border bg-card/80">
-              <div className="flex gap-1.5">
-                <div className="w-3 h-3 rounded-full bg-destructive/60" />
-                <div className="w-3 h-3 rounded-full bg-yellow-500/60" />
-                <div className="w-3 h-3 rounded-full bg-green-500/60" />
-              </div>
-              <span className="text-xs text-muted-foreground ml-2">Finance Fairy – Dashboard</span>
-            </div>
-            <div className="p-6 sm:p-8">
-              {/* Mock dashboard preview */}
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-6">
-                {[
-                  { label: "Inkomst", value: "37 500 kr", color: "text-green-500" },
-                  { label: "Utgifter", value: "16 443 kr", color: "text-red-500" },
-                  { label: "Saldo", value: "21 057 kr", color: "text-primary" },
-                  { label: "Sparande", value: "10 528 kr", color: "text-blue-500" },
-                ].map((s) => (
-                  <div key={s.label} className="rounded-lg border border-border bg-card/50 p-3">
-                    <p className="text-xs text-muted-foreground">{s.label}</p>
-                    <p className={`text-sm sm:text-base font-bold ${s.color}`}>{s.value}</p>
-                  </div>
-                ))}
-              </div>
-              <div className="h-32 sm:h-40 rounded-lg bg-gradient-to-r from-primary/10 via-primary/5 to-transparent border border-border flex items-end p-4 gap-2">
-                {[40, 65, 50, 80, 60, 75, 90, 55, 70, 85, 45, 95].map((h, i) => (
-                  <div key={i} className="flex-1 bg-primary/30 rounded-t" style={{ height: `${h}%` }} />
-                ))}
-              </div>
-              <div className="mt-4 flex items-center gap-2 text-xs text-muted-foreground">
-                <span className="inline-flex items-center gap-1 px-2 py-1 rounded-full bg-primary/10 text-primary text-xs">🧚 Fairy</span>
-                <span>"Du sparar mer än genomsnittet – bra jobbat!"</span>
-              </div>
-            </div>
-          </div>
+          <img
+            src={appScreenshots}
+            alt="Finance Fairy – Dashboard, Fairy AI-assistent och Rapporter"
+            className="w-full rounded-2xl"
+          />
         </motion.div>
       </section>
 
