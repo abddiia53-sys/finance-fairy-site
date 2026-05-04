@@ -1,7 +1,8 @@
+import React from "react";
 import { motion } from "framer-motion";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
-import { ArrowRight, BarChart3, Brain, Shield, Sparkles, PiggyBank, TrendingUp } from "lucide-react";
+import { ArrowRight, BarChart3, Brain, Link2, Shield, Sparkles, PiggyBank, TrendingUp } from "lucide-react";
 import logo from "@/assets/finance-fairy-logo.png";
 import appScreenshots from "@/assets/app-screenshots.png";
 
