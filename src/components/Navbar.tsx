@@ -19,7 +19,7 @@ const Navbar = () => {
   const handleSignOut = async () => {
     await signOut();
     toast.success("Utloggad!");
-    navigate("/auth");
+    navigate("/start");
   };
 
   return (

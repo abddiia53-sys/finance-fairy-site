@@ -37,7 +37,8 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            <Route path="/auth" element={<Auth />} />
+            <Route path="/start" element={<PublicRoute><Landing /></PublicRoute>} />
+            <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
             <Route path="/bankid-callback" element={<BankIDCallback />} />
             <Route path="/" element={<ProtectedRoute><Index /></ProtectedRoute>} />
             <Route path="/rapporter" element={<ProtectedRoute><Reports /></ProtectedRoute>} />
