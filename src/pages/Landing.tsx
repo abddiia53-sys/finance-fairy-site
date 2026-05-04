@@ -104,6 +104,41 @@ const Landing = () => {
         </motion.div>
       </section>
 
+      {/* How it works */}
+      <section className="max-w-5xl mx-auto px-6 sm:px-10 py-16">
+        <div className="text-center mb-12">
+          <h2 className="text-3xl font-display font-bold mb-3">Så här fungerar det</h2>
+          <p className="text-muted-foreground max-w-xl mx-auto">Kom igång på under 2 minuter – helt gratis.</p>
+        </div>
+        <div className="flex flex-col sm:flex-row items-center sm:items-start justify-center gap-6 sm:gap-4">
+          {[
+            { num: "1", icon: <Link2 className="w-6 h-6 text-primary" />, title: "Koppla din bank", desc: "Logga in säkert med BankID via Tink. Tar under 2 minuter." },
+            { num: "2", icon: <BarChart3 className="w-6 h-6 text-primary" />, title: "Se din ekonomi", desc: "Få direkt översikt över alla inkomster, utgifter och ditt sparande." },
+            { num: "3", icon: <span className="text-2xl">🧚</span>, title: "Få råd från Fairy", desc: "Din AI-assistent analyserar din ekonomi och ger personliga spartips." },
+          ].map((step, i, arr) => (
+            <React.Fragment key={step.num}>
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: i * 0.12 }}
+                className="flex flex-col items-center text-center max-w-[220px]"
+              >
+                <span className="text-5xl font-display font-bold text-primary/20 mb-2">{step.num}</span>
+                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                  {step.icon}
+                </div>
+                <h3 className="font-semibold mb-1">{step.title}</h3>
+                <p className="text-sm text-muted-foreground">{step.desc}</p>
+              </motion.div>
+              {i < arr.length - 1 && (
+                <ArrowRight className="hidden sm:block w-5 h-5 text-muted-foreground mt-16 shrink-0" />
+              )}
+            </React.Fragment>
+          ))}
+        </div>
+      </section>
+
       {/* Features */}
       <section id="features" className="max-w-5xl mx-auto px-6 sm:px-10 py-16">
         <div className="text-center mb-12">
