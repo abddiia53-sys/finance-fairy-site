@@ -6,6 +6,7 @@ import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import { AuthProvider, useAuth } from "@/hooks/useAuth";
 import Index from "./pages/Index";
 import Auth from "./pages/Auth";
+import Landing from "./pages/Landing";
 import Reports from "./pages/Reports";
 
 import TinkCallback from "./pages/TinkCallback";
@@ -17,7 +18,14 @@ const queryClient = new QueryClient();
 const ProtectedRoute = ({ children }: { children: React.ReactNode }) => {
   const { session, loading } = useAuth();
   if (loading) return <div className="min-h-screen bg-background flex items-center justify-center"><p className="text-muted-foreground">Laddar...</p></div>;
-  if (!session) return <Navigate to="/auth" replace />;
+  if (!session) return <Navigate to="/start" replace />;
+  return <>{children}</>;
+};
+
+const PublicRoute = ({ children }: { children: React.ReactNode }) => {
+  const { session, loading } = useAuth();
+  if (loading) return <div className="min-h-screen bg-background flex items-center justify-center"><p className="text-muted-foreground">Laddar...</p></div>;
+  if (session) return <Navigate to="/" replace />;
   return <>{children}</>;
 };
 
@@ -29,7 +37,8 @@ const App = () => (
       <BrowserRouter>
         <AuthProvider>
           <Routes>
-            <Route path="/auth" element={<Auth />} />
+            <Route path="/start" element={<PublicRoute><Landing /></PublicRoute>} />
+            <Route path="/auth" element={<PublicRoute><Auth /></PublicRoute>} />
             <Route path="/bankid-callback" element={<BankIDCallback />} />
             <Route path="/" element={<ProtectedRoute><Index /></ProtectedRoute>} />
             <Route path="/rapporter" element={<ProtectedRoute><Reports /></ProtectedRoute>} />

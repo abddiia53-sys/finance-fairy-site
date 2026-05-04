@@ -68,7 +68,7 @@ const Auth = () => {
               <span className="text-foreground">Finance</span>{" "}
               <span className="text-gradient">Fairy</span>
             </h1>
-            <p className="text-muted-foreground">Din ekonomiska överblick</p>
+            <p className="text-muted-foreground">Håll koll på din privatekonomi</p>
           </div>
 
           <Card>
