@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, BarChart3, Brain, Link2, Shield, Sparkles, PiggyBank, TrendingUp } from "lucide-react";
 import logo from "@/assets/finance-fairy-logo.png";
 import appScreenshots from "@/assets/app-screenshots.png";
-import demoVideo from "@/assets/landing-demo.mp4.asset.json";
 
 const features = [
   {
@@ -90,34 +89,8 @@ const Landing = () => {
         </div>
       </section>
 
-      {/* Demo Video */}
-      <section className="max-w-5xl mx-auto px-6 sm:px-10 -mt-4 mb-16">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.7 }}
-          className="rounded-2xl overflow-hidden border border-border bg-card/50 shadow-2xl"
-        >
-          <div className="aspect-video relative">
-            <video
-              src={demoVideo.url}
-              autoPlay
-              loop
-              muted
-              playsInline
-              controls
-              className="w-full h-full object-cover"
-              aria-label="Demo: Finance Fairy med röststyrd AI-assistent"
-            />
-          </div>
-          <div className="px-6 py-4 text-center">
-            <p className="text-sm text-muted-foreground">
-              Se hur du pratar med Fairy – din AI-ekonomiassistent med röststyrning.
-            </p>
-          </div>
-        </motion.div>
-      </section>
+
+
 
       {/* App Screenshots */}
       <section className="max-w-5xl mx-auto px-6 sm:px-10 mb-16">
