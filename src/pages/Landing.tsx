@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight, BarChart3, Brain, Link2, Shield, Sparkles, PiggyBank, TrendingUp } from "lucide-react";
 import logo from "@/assets/finance-fairy-logo.png";
 import appScreenshots from "@/assets/app-screenshots.png";
+import demoVideo from "@/assets/landing-demo.mp4.asset.json";
 
 const features = [
   {
